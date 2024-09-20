@@ -7,3 +7,4 @@ let rec map2 f lst1 lst2 =
 
 
 map2 (fun x y -> x + y) [1; 2; 3] [4; 5; 6];;
+
