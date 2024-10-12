@@ -1,4 +1,4 @@
-(* Define the Location structure *)
+(* Step 1 Structure: Define the Location structure *)
 type location = {
   name : string;
   x : float;
@@ -53,11 +53,11 @@ let rec input_vehicles n =
     let capacity = int_of_string (read_line ()) in
     {id; capacity; route = []} :: input_vehicles (n - 1)
 
-(* Step 3: Sort Locations by Priority *)
+(* Step 3 P1: Sort Locations by Priority *)
 let sort_locations_by_priority locations =
   List.sort (fun loc1 loc2 -> compare loc2.priority loc1.priority) locations
 
-(* Step 4: Assign Locations to Vehicles *)
+(* Step 3 P2: Assign Locations to Vehicles *)
 let assign_locations_to_vehicles locations vehicles =
   let rec assign locs vehs acc =
     match vehs with
@@ -69,7 +69,7 @@ let assign_locations_to_vehicles locations vehicles =
   in
   assign locations vehicles []
 
-(* Step 5: Optimize Routes for Each Vehicle *)
+(* Step 3 P3: Route distance for Each Vehicle *)
 let calculate_route_distance locations =
   let rec aux locs acc =
     match locs with
@@ -78,7 +78,7 @@ let calculate_route_distance locations =
   in
   aux locations 0.0
 
-(* Step 6: Display the Results *)
+(* Step 4: Display the Results *)
 let display_routes vehicles =
   List.iter (fun v ->
     Printf.printf "Vehicle %d route: %s\n" v.id
