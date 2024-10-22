@@ -1,15 +1,30 @@
-(* Step 1: Input the 4x4 Sudoku Grid *)
-let print_grid grid =
-  Array.iter (fun row ->
-    Array.iter (fun cell -> Printf.printf "%d " cell) row;
-    Printf.printf "\n"
-  ) grid
+(* Step 1: Sudoku Inputs *)
+let sudoku1 = [|
+  [|1; 0; 0; 4|];
+  [|0; 0; 3; 0|];
+  [|3; 0; 0; 1|];
+  [|0; 2; 0; 0|];
+|]
 
-(* Utility to extract a column from a grid *)
+let sudoku2 = [|
+  [|0; 2; 0; 4|];
+  [|0; 0; 1; 0|];
+  [|0; 1; 0; 0|];
+  [|4; 0; 0; 0|];
+|]
+
+let sudoku3 = [|
+  [|0; 0; 0; 2|];
+  [|0; 3; 4; 0|];
+  [|0; 0; 0; 0|];
+  [|2; 0; 0; 0|];
+|]
+
+(* Helper function to get a column from a grid *)
 let get_column grid col_idx =
   Array.map (fun row -> row.(col_idx)) grid
 
-(* Utility to extract a 2x2 subgrid *)
+(* Helper function to get a 2x2 subgrid from a grid *)
 let get_subgrid grid row col =
   let subgrid_row_start = (row / 2) * 2 in
   let subgrid_col_start = (col / 2) * 2 in
@@ -74,7 +89,14 @@ let rec solve grid =
     in
     try_number 1
 
-(* Step 5: Display the solved Sudoku grid *)
+(* Step 5; Display the 4x4 Sudoku Grid *)
+let print_grid grid =
+  Array.iter (fun row ->
+    Array.iter (fun cell -> Printf.printf "%d " cell) row;
+    Printf.printf "\n"
+  ) grid
+
+(* Step 6: Handle edge cases *)
 let solve_sudoku grid =
   if not (is_valid_grid grid) then
     Printf.printf "Invalid input grid\n"
@@ -83,37 +105,11 @@ let solve_sudoku grid =
   else
     print_grid grid
 
-(* Test cases *)
-let sudoku1 = [|
-  [|1; 0; 0; 4|];
-  [|0; 0; 3; 0|];
-  [|3; 0; 0; 1|];
-  [|0; 2; 0; 0|];
-|]
-
-let sudoku2 = [|
-  [|0; 2; 0; 4|];
-  [|0; 0; 1; 0|];
-  [|0; 1; 0; 0|];
-  [|4; 0; 0; 0|];
-|]
-
-let sudoku3 = [|
-  [|0; 0; 0; 2|];
-  [|0; 3; 4; 0|];
-  [|0; 0; 0; 0|];
-  [|2; 0; 0; 0|];
-|]
-
-
 (* Running the program *)
 let () =
   Printf.printf "Solving Sudoku 1:\n";
   solve_sudoku sudoku1;
-let () =
   Printf.printf "Solving Sudoku 2:\n";
   solve_sudoku sudoku2;
-
-let () =
   Printf.printf "Solving Sudoku 3:\n";
   solve_sudoku sudoku3;
