@@ -31,3 +31,18 @@ ancestor(Anc, Desc) :-
 ancestor(Anc, Desc) :-
     parent(Anc, P),
     ancestor(P, Desc).
+
+
+% Base case: an empty list has a sum of 0
+sum_odd_numbers([], 0).
+
+% Recursive case: if the head is odd, add it to the sum of the tail
+sum_odd_numbers([Head|Tail], Sum) :-
+    Head mod 2 =:= 1,  % Check if Head is odd
+    sum_odd_numbers(Tail, TailSum),  % Recursively calculate sum of tail
+    Sum is Head + TailSum.
+
+% Recursive case: if the head is even, skip it and process the tail
+sum_odd_numbers([Head|Tail], Sum) :-
+    Head mod 2 =:= 0,  % Check if Head is even
+    sum_odd_numbers(Tail, Sum).  % Continue with tail
