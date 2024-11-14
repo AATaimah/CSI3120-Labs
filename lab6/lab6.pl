@@ -1,16 +1,17 @@
 
 
 % Question 1
-factorial(N, _, 'Error: Input must be a non-negative integer.') :-
-    ( \+ integer(N) ; N < 0 ), !.
+factorial(Input, _, 'Error: Input must be a non-negative integer.') :-
+    ( \+ integer(Input) ; Input < 0 ), !.
 
-factorial(0, Acc, Acc) :- !.
+factorial(0, TempResult, TempResult) :- !.
 
-factorial(N, Acc, Result) :-
-    N > 0,
-    NewAcc is Acc * N,
-    NewN is N - 1,
-    factorial(NewN, NewAcc, Result).
+factorial(Input, TempResult, FinalResult) :-
+    Input > 0,
+    UpdatedTemp is TempResult * Input,
+    UpdatedInput is Input - 1,
+    factorial(UpdatedInput, UpdatedTemp, FinalResult).
+
 
 
 
