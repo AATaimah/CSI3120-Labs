@@ -1,11 +1,15 @@
-
-% Question 1
-% Main predicate to handle the triangle generation
+% Question 1: Right-angle triangle with error handling
 right_angle_triangle_console :-
     write('Enter the height of the right-angled triangle: '),
     read(Height),
-    nl,
-    print_triangle(1, Height).
+    (   integer(Height), Height > 0 ->
+        nl,
+        print_triangle(1, Height)
+    ;   
+        write('Error: Height must be a positive integer.'),
+        nl,
+        fail
+    ).
 
 % Base case: Stop when current row exceeds height
 print_triangle(Current, Height) :-
@@ -21,23 +25,26 @@ print_triangle(Current, Height) :-
 % Print a single row of the triangle
 print_row(Count, Max) :-
     Count > Max, !.
-
 print_row(Count, Max) :-
     write('#'),
     NextCount is Count + 1,
     print_row(NextCount, Max).
 
 
+    
 
-
-% Question 2
-
-% Predicate to generate an isosceles triangle pattern and write it to a file
+% Question 2: Isosceles triangle pattern with error handling
 isosceles_triangle_pattern_file(Height, Filename) :-
-    open(Filename, write, Stream),
-    write_triangle_pattern(1, Height, Stream),
-    close(Stream),
-    format('Isosceles triangle pattern written to file: ~w~n', [Filename]).
+    (   integer(Height), Height > 0 ->
+        open(Filename, write, Stream),
+        write_triangle_pattern(1, Height, Stream),
+        close(Stream),
+        format('Isosceles triangle pattern written to file: ~w~n', [Filename])
+    ;
+        format('Error: Height ~w must be a positive integer.', [Height]),
+        nl,
+        fail
+    ).
 
 % Helper predicate to write each line of the triangle
 write_triangle_pattern(CurrentRow, Height, Stream) :-
